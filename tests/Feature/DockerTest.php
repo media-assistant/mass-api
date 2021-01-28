@@ -12,6 +12,13 @@ use Tests\TestCase;
  */
 class DockerTest extends TestCase
 {
+    public function testLookupMovies(): void
+    {
+        $response = $this->json(Request::METHOD_GET, '/api/radarr/movie/lookup?term=batman');
+
+        $response->assertStatus(Response::HTTP_OK);
+    }
+
     public function testGetMovies(): void
     {
         $response = $this->json(Request::METHOD_GET, '/api/radarr/movie');

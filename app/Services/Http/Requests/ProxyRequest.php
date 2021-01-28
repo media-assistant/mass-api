@@ -25,7 +25,11 @@ class ProxyRequest extends BaseRequest
 
     public function getParameters(): string
     {
-        return $this->request->getQueryString() ?? '';
+        if ('transmission' === $this->config_key) {
+            return '';
+        }
+
+        return "&{$this->request->getQueryString()}" ?? '';
     }
 
     public function getJson(): array
