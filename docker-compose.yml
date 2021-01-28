@@ -31,6 +31,7 @@ services:
       CONTAINER_ROLE: app
       COMPOSER_HOME: /tmp/composer
       COMPOSER_CACHE_DIR: /tmp/composer/cache
+      XDG_CONFIG_HOME: /tmp/xdg
     restart: unless-stopped
     networks: 
       - traefik_default

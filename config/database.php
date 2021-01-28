@@ -52,6 +52,16 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        'sonarr_sqlite' => [
+            'driver'   => 'sqlite',
+            'database' => storage_path('docker/sonarr/nzbdrone.db'),
+            'prefix'   => '',
+        ],
+        'radarr_sqlite' => [
+            'driver'   => 'sqlite',
+            'database' => storage_path('docker/radarr/radarr.db'),
+            'prefix'   => '',
+        ],
     ],
 
     /*
