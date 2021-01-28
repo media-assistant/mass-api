@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Tests\TestCase;
 
 /**
@@ -12,14 +13,33 @@ use Tests\TestCase;
  */
 class AuthTest extends TestCase
 {
-    public function testIncorrectData(): void
+    use RefreshDatabase;
+
+    public function testCreateUser(): void
     {
+        $user = User::factory()->create();
+
+        $this->assertNotNull(User::find($user->id));
+    }
+
+    public function testGetToken(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $this->assertCount(0, $user->tokens()->get());
+
         $response = $this->json(Request::METHOD_POST, '/api/token', [
-            'email'       => 'test@test.nl',
-            'password'    => 'test',
-            'device_name' => 'test',
+            'email'       => $user->email,
+            'password'    => 'password',
+            'device_name' => 'testcase',
         ]);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'token',
+        ]);
+
+        $this->assertCount(1, $user->tokens()->get());
     }
 }

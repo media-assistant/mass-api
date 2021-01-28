@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Hash;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function token(Request $request): string
+    public function token(Request $request): JsonResponse
     {
         $request->validate([
             'email'       => 'required|email',
@@ -25,6 +26,6 @@ class AuthController extends Controller
             ]);
         }
 
-        return $user->createToken($request->device_name)->plainTextToken;
+        return response()->json(['token' => $user->createToken($request->device_name)->plainTextToken]);
     }
 }

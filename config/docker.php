@@ -1,27 +1,28 @@
 <?php
 
+use App\Enums\AppName;
 use App\Services\Media\Http\TransmissionSession;
 
 $default = [
     'manual_config' => env('MANUAL_CONFIG', true),
-    'sonarr'        => [
+    AppName::SONARR => [
         'host'    => env('SONARR_HOST', null),
         'port'    => env('SONARR_PORT', null),
         'api_key' => env('SONARR_API_KEY', null),
         'folder'  => env('SONARR_FOLDER', null),
     ],
-    'radarr' => [
+    AppName::RADARR => [
         'host'    => env('RADARR_HOST', null),
         'port'    => env('RADARR_PORT', null),
         'api_key' => env('RADARR_API_KEY', null),
         'folder'  => env('RADARR_FOLDER', null),
     ],
-    'transmission' => [
+    AppName::TRANSMISSION => [
         'host'       => env('TRANSMISSION_HOST', null),
         'port'       => env('TRANSMISSION_PORT', null),
         'session_id' => null,
     ],
-    'jackett' => [
+    AppName::JACKETT => [
         'host'    => env('JACKETT_HOST', null),
         'port'    => env('JACKETT_PORT', null),
         'api_key' => env('JACKETT_API_KEY', null),
@@ -72,30 +73,30 @@ try {
         file_get_contents($files[3]) ?: ''
     );
 
-    $transmission_host       = env('TRANSMISSION_HOST', 'transmission');
+    $transmission_host       = env('TRANSMISSION_HOST', AppName::TRANSMISSION);
     $transmission_port       = (int) $transmission_config->{'rpc-port'};
     $transmission_session_id = TransmissionSession::getSession($transmission_host, strval($transmission_port));
 
     return [
-        'sonarr' => [
-            'host'    => env('SONARR_HOST', 'sonarr'),
+        AppName::SONARR => [
+            'host'    => env('SONARR_HOST', AppName::SONARR),
             'port'    => (int) $sonarr_config->Port,
             'api_key' => (string) $sonarr_config->ApiKey,
             'folder'  => env('SONARR_HOST', '/tv/'),
         ],
-        'radarr' => [
-            'host'    => env('RADARR_HOST', 'radarr'),
+        AppName::RADARR => [
+            'host'    => env('RADARR_HOST', AppName::RADARR),
             'port'    => (int) $radarr_config->Port,
             'api_key' => (string) $radarr_config->ApiKey,
             'folder'  => env('RADARR_FOLDER', '/movies/'),
         ],
-        'transmission' => [
+        AppName::TRANSMISSION => [
             'host'       => $transmission_host,
             'port'       => $transmission_port,
             'session_id' => $transmission_session_id,
         ],
-        'jackett' => [
-            'host'    => env('RADARR_HOST', 'jackett'),
+        AppName::JACKETT => [
+            'host'    => env('RADARR_HOST', AppName::JACKETT),
             'port'    => (int) $jackett_config->Port,
             'api_key' => (string) $jackett_config->APIKey,
         ],

@@ -62,6 +62,10 @@ return [
             'database' => storage_path('docker/radarr/radarr.db'),
             'prefix'   => '',
         ],
+        'sqlite' => [
+            'driver'   => 'sqlite',
+            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+        ],
     ],
 
     /*

@@ -3,12 +3,13 @@
 namespace App\Services\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
+use Psr\Http\Message\ResponseInterface;
 
 class Client extends GuzzleClient
 {
     public function doRequest(RequestInterface $request): ResponseInterface
     {
-        $response = $this->request(
+        return $this->request(
             $request->getMethod(),
             $request->getUrl(),
             [
@@ -16,7 +17,5 @@ class Client extends GuzzleClient
                 'headers' => $request->getHeaders(),
             ]
         );
-
-        return $request->getResponseData($response);
     }
 }

@@ -2,10 +2,6 @@
 
 namespace App\Services\Http\Requests;
 
-use App\Services\Http\ResponseInterface;
-use App\Services\Http\Responses\StringResponse;
-use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
-
 class TransmissionRequest extends BaseRequest
 {
     public function getRoute(): string
@@ -28,10 +24,5 @@ class TransmissionRequest extends BaseRequest
         return [
             'X-Transmission-Session-Id' => config('apis.transmission.session_id'),
         ];
-    }
-
-    public function getResponseData(PsrResponseInterface $response): ResponseInterface
-    {
-        return new StringResponse($response);
     }
 }

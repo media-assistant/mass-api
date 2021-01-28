@@ -2,8 +2,6 @@
 
 namespace App\Services\Http;
 
-use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
-
 interface RequestInterface
 {
     public function getPort(): int;
@@ -23,6 +21,4 @@ interface RequestInterface
     public function getJson(): array;
 
     public function getHeaders(): array;
-
-    public function getResponseData(PsrResponseInterface $response): ResponseInterface;
 }
