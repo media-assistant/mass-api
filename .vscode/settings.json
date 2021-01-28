@@ -1,5 +1,0 @@
-{
-    "phpstan.enabled": true,
-    "phpstan.path": "vendor/bin/phpstan",
-    "phpstan.projectFile": "phpstan.neon",
-}
