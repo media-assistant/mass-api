@@ -33,7 +33,7 @@ jobs:
 
     - name: Composer install
       if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: docker-compose exec -T laravel composer install --no-dev
+      run: docker-compose exec -T laravel composer install
 
     - name: Format PHP
       run: docker-compose exec -T laravel composer format-dry
