@@ -48,14 +48,9 @@ class ProxyRequest extends BaseRequest
         return "{$this->route_prefix}/{$split[1]}";
     }
 
-    public function getHost(): string
+    public function getBaseUrl(): string
     {
-        return (string) config("docker.{$this->config_key}.host");
-    }
-
-    public function getPort(): int
-    {
-        return config("docker.{$this->config_key}.port");
+        return (string) config("docker.{$this->config_key}.url");
     }
 
     public function getHeaders(): array

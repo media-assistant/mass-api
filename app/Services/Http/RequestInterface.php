@@ -4,9 +4,7 @@ namespace App\Services\Http;
 
 interface RequestInterface
 {
-    public function getPort(): int;
-
-    public function getHost(): string;
+    public function getBaseUrl(): string;
 
     public function getMethod(): string;
 

@@ -9,9 +9,9 @@ class TransmissionRequest extends BaseRequest
         return 'transmission/rpc';
     }
 
-    public function getHost(): string
+    public function getBaseUrl(): string
     {
-        return (string) config('apis.transmission.ip');
+        return (string) config('apis.transmission.url');
     }
 
     public function getPort(): int

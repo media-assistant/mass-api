@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\ClientException;
 
 class TransmissionSession
 {
-    public static function getSession(string $transmission_host, string $transmission_port): string
+    public static function getSession(string $transmission_url): string
     {
         $request = new TransmissionRequest();
 
@@ -16,7 +16,7 @@ class TransmissionSession
 
         try {
             $client = new Client();
-            $client->request('GET', "http://{$transmission_host}:{$transmission_port}/{$request->getRoute()}");
+            $client->request('GET', "{$transmission_url}/{$request->getRoute()}");
         } catch (ClientException $exception) {
             $response = $exception->getResponse()->getBody()->getContents();
 
