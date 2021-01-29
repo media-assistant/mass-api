@@ -25,6 +25,9 @@ jobs:
     - name: Setup .env
       run: cp .env.github .env
 
+    - name: Docker create network
+      run: docker network create traefik_default
+
     - name: Docker start
       run: docker-compose up -d laravel
 
