@@ -17,6 +17,7 @@ class AuthTest extends TestCase
 
     public function testCreateUser(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $this->assertNotNull(User::find($user->id));

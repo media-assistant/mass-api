@@ -38,6 +38,8 @@ class User extends Authenticatable
     use HasFactory;
     use HasApiTokens;
 
+    public const DEFAULT = 1;
+
     protected $fillable = [
         'name',
         'email',
