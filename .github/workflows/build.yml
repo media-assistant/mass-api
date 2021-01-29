@@ -33,12 +33,12 @@ jobs:
 
     - name: Composer install
       if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: docker-compose exec laravel composer install --no-dev
+      run: docker-compose exec -T laravel composer install --no-dev
 
     - name: Format PHP
-      run: docker-compose exec laravel composer format-php-dry
+      run: docker-compose exec -T laravel composer format-php-dry
 
     - name: Statically Analyze PHP
-      run: docker-compose exec laravel composer larastan
+      run: docker-compose exec -T laravel composer larastan
       
     # TODO tests / DB stuff?
