@@ -1,0 +1,31 @@
+[
+  {
+    "id": "sitelink",
+    "type": "inputstring",
+    "name": "Site Link",
+    "value": "https://rarbg.to/"
+  },
+  {
+    "id": "cookieheader",
+    "type": "hiddendata",
+    "name": "CookieHeader",
+    "value": "__cfduid=d0aa6359427e97516c0e2df56974738471592495529; __cf_bm=79eba09094fcd758f498df4a2a9565910dab016b-1592497589-1800-ARIbN/+ES2Ay28m51gInE/ZlCBR1RnaSGpRUnc6YHxrA196zYxYDt9RIJ4fZeQTygecxPN9iVdBKhpR+0+fdoQY="
+  },
+  {
+    "id": "lasterror",
+    "type": "hiddendata",
+    "name": "LastError",
+    "value": ""
+  },
+  {
+    "id": "sortrequestedfromsite",
+    "type": "inputselect",
+    "name": "Sort requested from site",
+    "value": "last",
+    "options": {
+      "last": "created",
+      "seeders": "seeders",
+      "leechers": "leechers"
+    }
+  }
+]

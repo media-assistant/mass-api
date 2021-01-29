@@ -1,0 +1,64 @@
+version: "3.7"
+services:
+  laravel-db:
+    container_name: ${APP_NAME}-laravel-db
+    image: mysql
+    restart: unless-stopped
+    networks: 
+      - traefik_default
+    # Enable if you need access to the DB from host
+    # ports:
+    #   - 10001:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      # SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+      TZ: ${TZ}
+
+  laravel:
+    container_name: ${APP_NAME}-laravel
+    depends_on:
+      - laravel-db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: ${UID}
+    environment:
+      TZ: ${TZ}
+      CONTAINER_ROLE: app
+      COMPOSER_HOME: /tmp/composer
+      COMPOSER_CACHE_DIR: /tmp/composer/cache
+      XDG_CONFIG_HOME: /tmp/xdg
+    restart: unless-stopped
+    networks: 
+      - traefik_default
+    volumes:
+      - ./:/var/www
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+
+  laravel-nginx:
+    container_name: ${APP_NAME}-laravel-nginx
+    image: nginx:alpine
+    restart: unless-stopped
+    depends_on:
+      - laravel
+    environment:
+      - PUID=1234
+      - PGID=1234
+      - TZ=${TZ}
+      - APP_NAME=${APP_NAME}
+    volumes:
+      - ./:/var/www
+      - ./nginx:/etc/nginx/templates/
+    networks: 
+      - traefik_default
+    labels:
+      - traefik.enable=true
+
+networks:
+  traefik_default:
+    external: true
