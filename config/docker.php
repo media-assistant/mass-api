@@ -28,7 +28,7 @@ $default = [
 
 if (false === env('AUTO_CONFIG', true)) {
     try {
-        $default['transmission']['session_id'] = TransmissionSession::getSession($default['transmission']['url']);
+        $default[AppName::TRANSMISSION]['session_id'] = TransmissionSession::getSession($default[AppName::TRANSMISSION]['url']);
     } catch (\Throwable $th) {
         try {
             Log::error($th->getMessage());
