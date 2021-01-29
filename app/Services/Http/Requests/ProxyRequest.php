@@ -23,34 +23,9 @@ class ProxyRequest extends BaseRequest
         return $this->request->method();
     }
 
-    public function getParameters(): string
-    {
-        if ('transmission' === $this->config_key) {
-            return '';
-        }
-
-        return "&{$this->request->getQueryString()}" ?? '';
-    }
-
     public function getJson(): array
     {
         return $this->request->all();
-    }
-
-    public function getRoute(): string
-    {
-        $split = preg_split("/\\/{$this->config_key}\\//", $this->request->url()) ?: [];
-
-        if (2 !== count($split)) {
-            throw new Exception('Route not splittable');
-        }
-
-        return "{$this->route_prefix}/{$split[1]}";
-    }
-
-    public function getBaseUrl(): string
-    {
-        return (string) config("docker.{$this->config_key}.url");
     }
 
     public function getHeaders(): array
@@ -64,6 +39,22 @@ class ProxyRequest extends BaseRequest
         return [];
     }
 
+    protected function getBaseUrl(): string
+    {
+        return (string) config("docker.{$this->config_key}.url");
+    }
+
+    protected function getRoute(): string
+    {
+        $split = preg_split("/\\/{$this->config_key}\\//", $this->request->url()) ?: [];
+
+        if (2 !== count($split)) {
+            throw new Exception('Route not splittable');
+        }
+
+        return "{$this->route_prefix}/{$split[1]}";
+    }
+
     public function getApiString(): string
     {
         if ('transmission' === $this->config_key) {
@@ -73,5 +64,14 @@ class ProxyRequest extends BaseRequest
         $api_key = config("docker.{$this->config_key}.api_key");
 
         return "?apikey={$api_key}";
+    }
+
+    public function getParameters(): string
+    {
+        if ('transmission' === $this->config_key) {
+            return '';
+        }
+
+        return "&{$this->request->getQueryString()}" ?? '';
     }
 }

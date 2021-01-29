@@ -17,23 +17,28 @@ abstract class BaseRequest implements RequestInterface
         return Request::METHOD_GET;
     }
 
-    public function getParameters(): string
-    {
-        return '';
-    }
-
-    public function getApiString(): string
-    {
-        return '';
-    }
-
     public function getJson(): array
     {
         return [];
     }
 
-    public function getHeaders(): array
+    protected function getBaseUrl(): string
     {
-        return [];
+        return '';
+    }
+
+    protected function getRoute(): string
+    {
+        return '';
+    }
+
+    protected function getApiString(): string
+    {
+        return '';
+    }
+
+    protected function getParameters(): string
+    {
+        return '';
     }
 }

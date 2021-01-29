@@ -7,27 +7,35 @@ use App\Http\Controllers\Controller;
 use App\Services\Http\Client;
 use App\Services\Http\Requests\ProxyRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProxyController extends Controller
 {
-    public function radarr(Request $request, Client $client): string
+    public function radarr(Request $request): Response
     {
-        return $client->doRequest(
+        return $this->doRequest(
             new ProxyRequest($request, AppName::RADARR, 'api/v3')
-        )->getBody()->getContents();
+        );
     }
 
-    public function sonarr(Request $request, Client $client): string
+    public function sonarr(Request $request): Response
     {
-        return $client->doRequest(
+        return $this->doRequest(
             new ProxyRequest($request, AppName::SONARR, 'api')
-        )->getBody()->getContents();
+        );
     }
 
-    public function transmission(Request $request, Client $client): string
+    public function transmission(Request $request): Response
     {
-        return $client->doRequest(
+        return $this->doRequest(
             new ProxyRequest($request, AppName::TRANSMISSION, 'transmission/rpc')
-        )->getBody()->getContents();
+        );
+    }
+
+    public function doRequest(ProxyRequest $request): Response
+    {
+        $reponse = (new Client())->doRequest($request);
+
+        return response($reponse->getBody()->getContents(), $reponse->getStatusCode(), $reponse->getHeaders());
     }
 }

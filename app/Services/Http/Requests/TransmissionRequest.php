@@ -14,11 +14,6 @@ class TransmissionRequest extends BaseRequest
         return (string) config('apis.transmission.url');
     }
 
-    public function getPort(): int
-    {
-        return config('apis.transmission.port');
-    }
-
     public function getHeaders(): array
     {
         return [
