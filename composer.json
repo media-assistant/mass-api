@@ -58,13 +58,18 @@
             "@php artisan package:discover --ansi"
         ],
         "initialize": [
+            "composer install --no-dev",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php artisan key:generate --ansi",
-            "@composer update-app"
+            "@php artisan key:generate --force --ansi",
+            "@php artisan migrate:fresh --force"
+        ],
+        "initialize-auto-mode": [
+            "@php artisan db:seed --force"
         ],
         "update-app" : [
             "composer install --no-dev",
             "@php artisan optimize",
+            "@php artisan config:cache",
             "@php artisan migrate --force",
             "@php artisan queue:restart"
         ],

@@ -70,9 +70,13 @@ try {
         file_get_contents($files[3]) ?: ''
     );
 
-    $transmission_url = env('TRANSMISSION_url', Url::baseUrl(AppName::TRANSMISSION, $transmission_config->{'rpc-port'}));
+    $transmission_url = Url::baseUrl(AppName::TRANSMISSION, $transmission_config->{'rpc-port'});
 
-    $transmission_session_id = TransmissionSession::getSession($transmission_url);
+    try {
+        $transmission_session_id = TransmissionSession::getSession($transmission_url);
+    } catch (\Throwable $th) {
+        $transmission_session_id = '';
+    }
 
     return [
         AppName::SONARR => [
