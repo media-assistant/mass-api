@@ -3,9 +3,10 @@
 namespace App\Library;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\DB;
 
-class Auth
+class Auth extends FacadesAuth
 {
     public static function createToken(User $user, string $device_name): string
     {

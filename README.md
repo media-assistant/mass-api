@@ -19,25 +19,50 @@ docker-compose up -d
 
 Make sure all containers are running (`docker container ps`).
 
+Spawn an interactive shell with:
+
+```bash
+docker-compose exec laravel sh
+```
+
 Initialize app
 
 ```bash
-docker-compose exec laravel composer initialize
+composer initialize
 ```
 :warning: `composer initialize` resets API database, so use with care
 
 Edit .env values according to your setup.
 
 ```bash
-docker-compose exec laravel composer update-app
+composer update-app
 ```
 
-To automatically setup the connections for Sonarr / Radarr and Transmission / Jacket run the following command. 
+#### Optional
+
+To automatically setup the connections for Sonarr / Radarr and Transmission / Jacket run the following command.
 * Not needed if `MANUAL_CONFIG=true` (does nothing :D).
-* :warning: Ff `MANUAL_CONFIG=false` then it overwrites existing DB values from docker containers, so use with care.
+* :warning: If `MANUAL_CONFIG=false` then it overwrites existing DB values from docker containers, so use with care.
 
 ```bash
-docker-compose exec laravel composer initialize-auto-mode
+composer initialize-auto-mode
+```
+
+### Development
+
+
+Run the tests that are being checked by GitHub actions 
+
+```bash
+composer test
+```
+
+### Tokens
+
+Generate a new Authorization Bearer token for the admin user:
+
+```
+php artisan auth:token
 ```
 
 ### Update
@@ -47,18 +72,4 @@ After pulling an update run:
 ```bash
 docker-compose up -d
 docker-compose exec laravel composer update-app
-```
-
-### Development
-
-Spawn a interactive shell with:
-
-```bash
-docker-compose exec laravel sh
-```
-
-Run the tests that are being checked by GitHub actions 
-
-```bash
-composer test
 ```
