@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 
 class CreateAdminToken extends Command
 {
-    protected $signature = 'auth:token';
+    protected $signature   = 'auth:token';
     protected $description = 'Generates new token for admin user. Disables all old tokens!';
 
     public function handle(): int
