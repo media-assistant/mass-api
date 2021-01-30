@@ -29,7 +29,6 @@ class ExternalTest extends TestCase
 
     private function skipIfEnv(): void
     {
-        dd(env('SKIP_EXTERNAL_TESTS', false));
         if (env('SKIP_EXTERNAL_TESTS', false)) {
             $this->markTestSkipped('Skipped according to .env');
         }
