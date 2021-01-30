@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ExampleTest extends TestCase
 {
-    public function testBasicTest(): void
+    public function testAlwaysOkTest(): void
     {
         $this->assertTrue(true);
     }

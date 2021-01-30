@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "bmewburn.vscode-intelephense-client",
-        "amiralizadeh9480.laravel-extra-intellisense"
+        "amiralizadeh9480.laravel-extra-intellisense",
+        "rexshi.phpdoc-comment-vscode-plugin"
     ]
 }

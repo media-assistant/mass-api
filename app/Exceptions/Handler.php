@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -12,8 +17,7 @@ class Handler extends ExceptionHandler
      *
      * @var string[]
      */
-    protected $dontReport = [
-    ];
+    protected $dontReport = [];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -28,9 +32,22 @@ class Handler extends ExceptionHandler
     /**
      * Register the exception handling callbacks for the application.
      */
-    public function register()
+    public function register(): void
     {
         $this->reportable(function (Throwable $e) {
         });
+    }
+
+    /**
+     * Overwrite default behaviour that tries to redirect to 'login' route.
+     *
+     * @param Request                 $request
+     * @param AuthenticationException $exception
+     *
+     * @return JsonResponse
+     */
+    public function unauthenticated($request, AuthenticationException $exception): JsonResponse
+    {
+        return response()->json(['message' => $exception->getMessage()], Response::HTTP_UNAUTHORIZED);
     }
 }

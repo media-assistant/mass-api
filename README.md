@@ -28,18 +28,16 @@ docker-compose exec laravel composer initialize
 
 Edit .env values according to your setup.
 
+```bash
+docker-compose exec laravel composer update-app
+```
+
 To automatically setup the connections for Sonarr / Radarr and Transmission / Jacket run the following command. 
 * Not needed if `MANUAL_CONFIG=true` (does nothing :D).
 * :warning: Ff `MANUAL_CONFIG=false` then it overwrites existing DB values from docker containers, so use with care.
 
 ```bash
 docker-compose exec laravel composer initialize-auto-mode
-```
-
-Lastly run:
-
-```bash
-docker-compose exec laravel composer update-app
 ```
 
 ### Update
@@ -57,4 +55,10 @@ Spawn a interactive shell with:
 
 ```bash
 docker-compose exec laravel sh
+```
+
+Run the tests that are being checked by GitHub actions 
+
+```bash
+composer test
 ```
