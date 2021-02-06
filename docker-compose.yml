@@ -15,7 +15,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
       # SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      # SERVICE_NAME: mysql
       TZ: ${TZ}
 
   laravel:

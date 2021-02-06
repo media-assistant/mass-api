@@ -15,15 +15,7 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCreateUser(): void
-    {
-        /** @var User $user */
-        $user = User::factory()->create();
-
-        $this->assertNotNull(User::find($user->id));
-    }
-
-    public function testGetToken(): void
+    public function testAuth(): void
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -33,7 +25,6 @@ class AuthTest extends TestCase
         $response = $this->json(Request::METHOD_POST, '/api/token', [
             'email'       => $user->email,
             'password'    => 'password',
-            'device_name' => 'testcase',
         ]);
 
         $response->assertOk();
@@ -42,5 +33,21 @@ class AuthTest extends TestCase
         ]);
 
         $this->assertCount(1, $user->tokens()->get());
+
+        $token = $response->json('token');
+
+        $response = $this->get('/api/ping', [
+            'Authorization' => "Bearer {$token}",
+        ]);
+
+        $response->assertOk();
+        $response->assertExactJson(['pong']);
+    }
+
+    public function testNoAuth(): void
+    {
+        $response = $this->get('/api/ping');
+
+        $response->assertUnauthorized();
     }
 }

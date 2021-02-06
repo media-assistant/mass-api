@@ -40,5 +40,6 @@ jobs:
 
     - name: Statically Analyze PHP
       run: docker-compose exec -T laravel composer larastan
-      
-    # TODO tests / DB stuff?
+
+    - name: Run PHP tests
+      run: docker-compose exec -T laravel php artisan test --parallel --env=github
