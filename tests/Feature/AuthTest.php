@@ -25,7 +25,6 @@ class AuthTest extends TestCase
         $response = $this->json(Request::METHOD_POST, '/api/token', [
             'email'       => $user->email,
             'password'    => 'password',
-            'device_name' => 'testcase',
         ]);
 
         $response->assertOk();

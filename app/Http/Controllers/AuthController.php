@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Library\Auth;
 use App\Models\User;
-use Hash;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -16,7 +18,6 @@ class AuthController extends Controller
         $validated = $request->validate([
             'email'       => 'required|email',
             'password'    => 'required',
-            'device_name' => 'required',
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -27,6 +28,11 @@ class AuthController extends Controller
             ]);
         }
 
-        return response()->json(['token' => Auth::createToken($user, $validated['device_name'])]);
+        return response()->json(['token' => Auth::createToken($user)]);
+    }
+
+    public function user(): JsonResource
+    {
+        return UserResource::make(Auth::user());
     }
 }

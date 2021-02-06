@@ -25,4 +25,6 @@ Route::middleware('auth:sanctum')->group(static function (): void {
     Route::any('ping', static function (): JsonResponse {
         return response()->json('pong');
     });
+
+    Route::get('user', [AuthController::class, 'user']);
 });
