@@ -35,7 +35,7 @@ class CreateUsersTable extends Migration
         $user->name              = 'admin';
         $user->email             = 'admin@gmail.com';
         $user->email_verified_at = now();
-        $user->password          = bcrypt(config('admin_initial_password'));
+        $user->password          = bcrypt(config('mass.admin_initial_password'));
         $user->save();
     }
 }

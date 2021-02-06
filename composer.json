@@ -59,8 +59,8 @@
         ],
         "initialize": [
             "@composer install --no-dev",
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php artisan key:generate --force --ansi"
+            "@php artisan key:generate --force --ansi",
+            "@composer update-app"
         ],
         "initialize-auto-mode": [
             "@php artisan db:seed --force"

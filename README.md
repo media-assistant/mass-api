@@ -13,6 +13,14 @@ If you use automatic mode, replace all `docker-compose` commands in this readme 
 
 ### First setup
 
+Setup environment according to desired setup. Edit the values!
+
+```bash
+cp .env.example .env
+```
+
+Start containers
+
 ```bash
 docker-compose up -d
 ```
@@ -31,12 +39,6 @@ Initialize app
 composer initialize
 ```
 :warning: `composer initialize` resets API database, so use with care
-
-Edit .env values according to your setup.
-
-```bash
-composer update-app
-```
 
 #### Optional
 
