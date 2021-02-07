@@ -27,6 +27,7 @@ class RequestTest extends ExternalTestCase
 
     public function testCrud(): void
     {
+        $this->skipIfEnv();
         $this->setUser();
 
         $response = $this->putJson('/api/requests', [
