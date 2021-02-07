@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Library\Debug;
 use App\Models\Request\Request;
 use App\Models\Request\RequestStatus;
 use App\Services\Requests\RequestPutter;
@@ -51,6 +50,5 @@ class RequestObserver
 
         $request->request_status_id = RequestStatus::ERROR;
         $request->save();
-        Debug::dd($throwable->getMessage());
     }
 }
