@@ -9,8 +9,7 @@ use App\Services\Http\Requests\Radarr\AddMovieRequest;
 use App\Services\Http\Requests\Radarr\SearchByIdRequest as MovieSearchByIdRequest;
 use App\Services\Http\Requests\Sonarr\AddSeriesRequest;
 use App\Services\Http\Requests\Sonarr\SearchByIdRequest as SeriesSearchByIdRequest;
-use App\Services\Http\Responses\Radarr\SearchByIdResponse as MovieSearchByIdResponse;
-use App\Services\Http\Responses\Sonarr\SearchByIdResponse as SeriesSearchByIdResponse;
+use App\Services\Http\Responses\SearchByIdResponse;
 
 class RequestPutter
 {
@@ -28,11 +27,11 @@ class RequestPutter
         $client         = new Client();
         $search_request = new MovieSearchByIdRequest($request->item_id);
 
-        $response = new MovieSearchByIdResponse(
+        $response = new SearchByIdResponse(
             $client->doRequest($search_request)
         );
 
-        $response = $client->doRequest(
+        $client->doRequest(
             new AddMovieRequest($response->data)
         );
     }
@@ -42,11 +41,11 @@ class RequestPutter
         $client         = new Client();
         $search_request = new SeriesSearchByIdRequest($request->item_id);
 
-        $response = new SeriesSearchByIdResponse(
+        $response = new SearchByIdResponse(
             $client->doRequest($search_request)
         );
 
-        $response = $client->doRequest(
+        $client->doRequest(
             new AddSeriesRequest($response->data)
         );
     }

@@ -17,7 +17,6 @@ services:
       # SERVICE_TAGS: dev
       # SERVICE_NAME: mysql
       TZ: ${TZ}
-    command: --default-authentication-plugin=mysql_native_password
 
   laravel:
     container_name: ${APP_NAME}-laravel

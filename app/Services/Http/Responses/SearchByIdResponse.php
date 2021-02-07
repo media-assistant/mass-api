@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Http\Responses\Radarr;
+namespace App\Services\Http\Responses;
 
 use App\Services\Http\Data\AddItemData;
 use Psr\Http\Message\ResponseInterface;
