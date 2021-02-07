@@ -18,8 +18,8 @@ class AddItemData
         'searchForMovie' => true,
     ];
 
-    private string $title;
-    private int $year;
+    protected string $title;
+    protected int $year;
 
     public function __construct(stdClass $data)
     {
