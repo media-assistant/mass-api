@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Library\OpenAPI\OpenAPI;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Route;
 
@@ -12,14 +13,8 @@ class OpenAPICommand extends Command
 
     public function handle(): int
     {
-        foreach (Route::getRoutes()->getRoutes() as $route) {
-            if (! str_contains($route->getPrefix() ?? '', 'api')) {
-                continue;
-            }
+        $openapi = new OpenAPI();
 
-            // TODO
-            dump($route->getAction());
-        }
 
         return 0;
     }

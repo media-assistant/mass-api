@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::any("{$app}/{any?}", [ProxyController::class, $app])->where('any', '.*');
     }
 
-    Route::any('ping', static function (): JsonResponse {
+    Route::get('ping', static function (): JsonResponse {
         return response()->json('pong');
     });
 

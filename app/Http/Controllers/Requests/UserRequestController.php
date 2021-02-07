@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Requests;
 
 use App\Enums\ItemType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PutRequestRequest;
 use App\Http\Resources\RequestResource;
 use App\Library\Auth;
 use App\Models\Request\Request;
@@ -22,16 +23,11 @@ class UserRequestController extends Controller
         return RequestResource::collection(Request::with(self::RELATIONS)->get());
     }
 
-    public function put(HttpRequest $request): JsonResponse
+    public function put(PutRequestRequest $request): JsonResponse
     {
         $user = Auth::forceUser();
 
-        $validated = $request->validate([
-            'item.tvdb_id' => 'integer|required_without:item.tmdb_id',
-            'item.tmdb_id' => 'integer|required_without:item.tvdb_id',
-            'item.text'    => 'required',
-            'item.images'  => 'present|array',
-        ]);
+        $validated = $request->validated();
 
         $image     = collect($validated['item']['images'])->firstWhere('coverType', 'poster');
         $image_url = $image['url'] ?? '/images/shiba_poster.jpg';
