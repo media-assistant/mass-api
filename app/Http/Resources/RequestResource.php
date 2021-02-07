@@ -17,7 +17,7 @@ class RequestResource extends JsonResource
             'type'                    => $this->type,
             'item_id'                 => $this->item_id,
             'text'                    => $this->text,
-            'image_url'               => str_replace('http://', 'https://', $this->image_url),
+            'image_url'               => $this->image_url,
             'status'                  => new RequestStatusResource($this->whenLoaded('status')),
             'updated_at'              => $this->updated_at,
             'created_at'              => $this->created_at,
