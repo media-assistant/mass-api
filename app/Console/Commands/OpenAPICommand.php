@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Route;
 
 class OpenAPICommand extends Command
 {
-    protected $signature = 'openapi:generate';
+    protected $signature   = 'openapi:generate';
     protected $description = 'Generates OpenAPI JSON file.';
 
     public function handle(): int
     {
         foreach (Route::getRoutes()->getRoutes() as $route) {
-            if (! str_contains($route->getPrefix() ?? '', 'api')){
+            if (! str_contains($route->getPrefix() ?? '', 'api')) {
                 continue;
             }
 
