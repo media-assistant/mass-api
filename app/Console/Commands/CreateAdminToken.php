@@ -13,7 +13,7 @@ class CreateAdminToken extends Command
 
     public function handle(): int
     {
-        $token = Auth::createToken(User::findOrFail(User::DEFAULT));
+        $token = Auth::createToken(User::findOrFail(User::ADMIN));
 
         $this->info("New token for admin user: {$token}");
 

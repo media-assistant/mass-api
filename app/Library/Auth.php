@@ -3,11 +3,23 @@
 namespace App\Library;
 
 use App\Models\User;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\DB;
 
 class Auth extends FacadesAuth
 {
+    public static function forceUser(): User
+    {
+        $user = parent::user();
+
+        if (null === $user) {
+            throw new AuthenticationException();
+        }
+
+        return $user;
+    }
+
     public static function createToken(User $user): string
     {
         try {

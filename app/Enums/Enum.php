@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-class Enum
+abstract class Enum
 {
     private function __construct()
     {

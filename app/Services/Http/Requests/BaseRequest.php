@@ -17,6 +17,11 @@ abstract class BaseRequest implements RequestInterface
         return Request::METHOD_GET;
     }
 
+    public function getHeaders(): array
+    {
+        return [];
+    }
+
     public function getJson(): array
     {
         return [];

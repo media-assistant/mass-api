@@ -11,7 +11,7 @@ class Client extends GuzzleClient
     public function doRequest(RequestInterface $request): ResponseInterface
     {
         try {
-            $reponse = $this->request(
+            $response = $this->request(
                 $request->getMethod(),
                 $request->getUrl(),
                 [
@@ -20,9 +20,9 @@ class Client extends GuzzleClient
                 ]
             );
         } catch (ClientException $exception) {
-            $reponse = $exception->getResponse();
+            $response = $exception->getResponse();
         }
 
-        return $reponse;
+        return $response;
     }
 }

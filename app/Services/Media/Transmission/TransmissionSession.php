@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Media\Http;
+namespace App\Services\Media\Transmission;
 
 use App\Services\Http\Client;
 use App\Services\Http\Requests\TransmissionRequest;

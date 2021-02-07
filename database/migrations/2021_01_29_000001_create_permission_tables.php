@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class CreatePermissionTables extends Migration
 {
@@ -19,7 +22,8 @@ class CreatePermissionTables extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('guard_name');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->unique(['name', 'guard_name']);
         });
@@ -28,7 +32,8 @@ class CreatePermissionTables extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('guard_name');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->unique(['name', 'guard_name']);
         });
@@ -85,6 +90,8 @@ class CreatePermissionTables extends Migration
         app('cache')
             ->store('default' != config('permission.cache.store') ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+
+        $this->createRoles($this->createPermissions());
     }
 
     public function down(): void
@@ -100,5 +107,38 @@ class CreatePermissionTables extends Migration
         Schema::drop($table_names['model_has_permissions']);
         Schema::drop($table_names['roles']);
         Schema::drop($table_names['permissions']);
+    }
+
+    private function createPermissions(): array
+    {
+        $permissions = [
+            'apis',
+            'requests.admin',
+            'requests.user',
+        ];
+
+        foreach ($permissions as $other_permission) {
+            Permission::firstOrCreate(['name' => $other_permission]);
+        }
+
+        return $permissions;
+    }
+
+    private function createRoles(array $permissions): void
+    {
+        $roles = [
+            'admin' => [...$permissions],
+        ];
+
+        foreach ($roles as $role => $role_permissions) {
+            $role = Role::firstOrCreate(['name' => $role]);
+
+            $permissions = Permission::whereIn('name', $role_permissions)->get();
+
+            $role->permissions()->sync($permissions);
+        }
+
+        $admin = User::findOrFail(User::ADMIN);
+        $admin->syncRoles(Role::where('name', 'admin')->firstOrFail());
     }
 }
