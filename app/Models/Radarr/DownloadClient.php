@@ -30,4 +30,30 @@ use App\Models\Shared\DownloadClient as SharedDownloadClient;
 class DownloadClient extends SharedDownloadClient
 {
     protected $connection = 'radarr_sqlite';
+
+    public static function getDefaults(): array
+    {
+        $url = config('docker.transmission.url');
+
+        [$protocol, $url] = explode('://', $url);
+        [$host, $port]    = explode(':', $url);
+
+        return [
+            'Id'             => '1',
+            'Enable'         => '1',
+            'Name'           => 'Transmission',
+            'Implementation' => 'Transmission',
+            'Settings'       => '{
+                "host": "' . $host . '",
+                "port": ' . $port . ',
+                "urlBase": "/transmission/",
+                "recentMoviePriority": 0,
+                "olderMoviePriority": 0,
+                "addPaused": false,
+                "useSsl": false
+            }',
+            'ConfigContract' => 'TransmissionSettings',
+            'Priority'       => '1',
+        ];
+    }
 }
