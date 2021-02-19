@@ -28,4 +28,31 @@ use App\Models\Shared\DownloadClient as SharedDownloadClient;
 class DownloadClient extends SharedDownloadClient
 {
     protected $connection = 'sonarr_sqlite';
+
+    public static function getDefaults(): array
+    {
+        $url = config('docker.transmission.url');
+
+        [$protocol, $url] = explode('://', $url);
+        [$host, $port]    = explode(':', $url);
+
+        return [
+            'Id'             => '1',
+            'Enable'         => '1',
+            'Name'           => 'Transmission',
+            'Implementation' => 'Transmission',
+            'Settings'       => "{
+                'host': '{$host}',
+                'port': {$port},
+                'urlBase': '/transmission/',
+                'username': '',
+                'password': '',
+                'recentTvPriority': 0,
+                'olderTvPriority': 0,
+                'addPaused': false,
+                'useSsl': false
+            }",
+            'ConfigContract' => 'TransmissionSettings',
+        ];
+    }
 }

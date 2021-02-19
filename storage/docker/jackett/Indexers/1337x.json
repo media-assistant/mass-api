@@ -9,7 +9,7 @@
     "id": "cookieheader",
     "type": "hiddendata",
     "name": "CookieHeader",
-    "value": "__cfduid=d04efd2b0a1e3d69d71ae78fa6e3d0d4f1592497528; __cf_bm=ceb883abf99fa08f03096367272cea2f77e8a9e6-1592497589-1800-Ad+ehbnS4P8TwtfN4s5R12cfJAZ8kBJSY/e1M1/8A4HiEqb0IgGKnJKUe9MA/X/SQLowOEEJpFCZpyyOKtadpQ4="
+    "value": "__cfduid=d04efd2b0a1e3d69d71ae78fa6e3d0d4f1592497528; __cf_bm=cc8bd3dba28e0c49ae9a711190451dc340e9abf1-1613767660-1800-AYg3c+/60j+f8/nk2HsDG8QENnQjZo7X5nl42b3d80jZ9C9X9vsIgPzQsmg9d0DRhLKsJc9sH6bNb7t3trg6S3o="
   },
   {
     "id": "lasterror",
@@ -24,8 +24,6 @@
     "value": "magnet:",
     "options": {
       "http://itorrents.org/": "iTorrents.org",
-      "http://torrage.info/": "Torrage.info",
-      "http://btcache.me/": "BTcache.me",
       "magnet:": "magnet"
     }
   },

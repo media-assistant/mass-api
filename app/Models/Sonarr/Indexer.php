@@ -33,8 +33,7 @@ class Indexer extends SharedIndexer
 
     public static function getDefaults(): array
     {
-        $host    = config('docker.jackett.host');
-        $port    = config('docker.jackett.port');
+        $url     = config('docker.jackett.url');
         $api_key = config('docker.jackett.api_key');
 
         return [
@@ -44,7 +43,7 @@ class Indexer extends SharedIndexer
             'Settings'       => "{
     'minimumSeeders': 1,
     'seedCriteria': {},
-    'baseUrl': 'http://{$host}:{$port}/torznab/all',
+    'baseUrl': '{$url}/torznab/all',
     'apiPath': '/api',
     'apiKey': '{$api_key}',
     'categories': [
