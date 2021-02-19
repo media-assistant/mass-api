@@ -7,8 +7,8 @@ services:
     networks: 
       - traefik_default
     # Enable if you need access to the DB from host
-    # ports:
-    #   - 10001:3306
+    ports:
+      - 19999:3306
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}

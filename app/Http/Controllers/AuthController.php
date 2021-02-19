@@ -33,6 +33,6 @@ class AuthController extends Controller
 
     public function user(): JsonResource
     {
-        return UserResource::make(Auth::user());
+        return UserResource::make(Auth::forceUser());
     }
 }

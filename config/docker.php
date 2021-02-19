@@ -2,7 +2,7 @@
 
 use App\Enums\AppName;
 use App\Library\Url;
-use App\Services\Media\Http\TransmissionSession;
+use App\Services\Media\Transmission\TransmissionSession;
 
 $default = [
     'manual_config' => env('MANUAL_CONFIG', true),
