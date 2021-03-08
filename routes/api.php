@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Media\ProxyController;
 use App\Http\Controllers\Requests\AdminRequestController;
 use App\Http\Controllers\Requests\UserRequestController;
+use App\Http\Controllers\StreamingServices\StreamingServiceController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,14 @@ Route::middleware('auth:sanctum')->group(static function (): void {
 
         Route::middleware('can:requests.admin')->group(static function (): void {
             Route::patch('{request}/status', [AdminRequestController::class, 'updateStatus']);
+        });
+    });
+
+    
+    Route::prefix('streaming')->group(static function () {
+        Route::prefix('search')->group(static function () {
+            Route::get('movie/{query}', [StreamingServiceController::class, 'searchMovie']);
+            Route::get('series/{query}', [StreamingServiceController::class, 'searchSeries']);
         });
     });
 });
